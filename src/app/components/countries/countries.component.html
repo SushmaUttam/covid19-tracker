@@ -1,0 +1,51 @@
+<div class="ui inverted dimmer" [class.active]='loading'>
+    <div class="ui text loader">Loading</div>
+</div>
+
+<div class="jumbotron bg-white text-center">
+    <hr>
+    <h1 class="display-4">Corona Covid-19 Tracker Country Wise</h1>
+    <hr>
+
+    <div class="mx-auto">
+        <div class="form-group col-lg-5 mx-auto">
+            <label for="c">Select Country</label>
+            <select name="" class="form-control" id="" (change)='updateValues(input.value)' #input>
+                <!-- <option class="dropdown-item" selected value="undefined">India</option> -->
+                <option value="{{country}}" *ngFor="let country of countries">{{country}}</option>
+            </select>
+        </div>
+    </div>
+    <app-dashboard-card
+        [totalConfirmed]='totalConfirmed'
+        [totalDeaths]='totalDeaths'
+        [totalActive]='totalActive'
+        [totalRecovered]='totalRecovered'>
+    </app-dashboard-card>
+
+    <div class="row">
+
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Date</th>
+                        <th>Cases</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let cs of selectedCountryData; index as i'>
+                        <td>{{i+1}}</td>
+                        <td>{{cs.date | date}}</td>
+                        <td>{{cs.cases}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col">
+            <google-chart [data]="lineChart"></google-chart>
+        </div>
+    </div>
+</div>
